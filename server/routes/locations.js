@@ -14,19 +14,17 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const location = new Location({
-    identifiant: req.body.identifiant
-    // voiture: Voiture.findById("5e0a6ea830f7510fc9a1e6db")._id,
-    // client: {
-    //   _id: "5e0a6ea830f7510fc9a1e6db",
-    //   numeroCIN: 11,
-    //   numPermis: 12,
-    //   __v: 0
-    // }
-  });
-  console.log(req.body);
-  console.log(Voiture.findById("5e0a6ea830f7510fc9a1e6db")._);
   try {
+    const voiture = await Voiture.findById("5e0a62e991f40c05bacb5406");
+    const client = await Client.findById("5e0a6ea830f7510fc9a1e6db");
+
+    const location = new Location({
+      identifiant: req.body.identifiant,
+      voiture: voiture,
+      client: client
+    });
+    console.log(req.body);
+    console.log(client);
     const savedLocation = await location.save();
     res.json(savedLocation);
   } catch (err) {
