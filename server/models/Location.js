@@ -1,6 +1,4 @@
 const mongoose = require("mongoose");
-const Voiture = require("./Voiture");
-const Client = require("./Client");
 
 const LocationSchema = mongoose.Schema({
   identifiant: {

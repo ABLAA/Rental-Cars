@@ -1,11 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
-
+const cors = require("cors");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 //Import Routes using Middlwares
+app.use(cors());
 const voituresRoute = require("./routes/voitures");
 app.use("/voitures", voituresRoute);
 
