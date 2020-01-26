@@ -11,6 +11,14 @@ router.get("/", async (req, res) => {
     res.json({ message: err });
   }
 });
+router.get("/:clientId", async (req, res) => {
+  try {
+    const clients = await Client.findById({ _id: req.params.clientId });
+    res.json(clients);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
 router.get("/count", async (req, res) => {
   try {
     const clientsCount = await Client.countDocuments();
@@ -94,7 +102,7 @@ router.put("/:clientId", async (req, res) => {
     );
     res.json(updatedClient);
   } catch (err) {
-    res.json({ message: err });
+    console.log(error);
   }
 });
 

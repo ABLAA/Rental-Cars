@@ -11,9 +11,19 @@ router.get("/", async (req, res) => {
     res.json({ message: err });
   }
 });
+
 router.get("/:voitureId", async (req, res) => {
   try {
     const voitures = await Voiture.findById({ _id: req.params.voitureId });
+    res.json(voitures);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+
+router.get("/marque/:marque", async (req, res) => {
+  try {
+    const voitures = await Voiture.find({ marque: req.params.marque });
     res.json(voitures);
   } catch (err) {
     res.json({ message: err });
@@ -63,7 +73,14 @@ router.get("/clientMaxLocation", async (req, res) => {
 router.post("/", async (req, res) => {
   const voiture = new Voiture({
     numChasis: req.body.numChasis,
-    numImmatriculation: req.body.numImmatriculation
+    numImmatriculation: req.body.numImmatriculation,
+    marque: req.body.marque,
+    modele: req.body.modele,
+    datePMC: req.body.datePMC,
+    nombreCilyndre: req.body.nombreCilyndre,
+    prixLocation: req.body.prixLocation,
+    assurence: req.body.assurence,
+    imgURL: req.body.imgURL
   });
   console.log(req.body);
   try {
@@ -73,12 +90,29 @@ router.post("/", async (req, res) => {
     res.json({ message: err });
   }
 });
+
 router.delete("/:voitureId", async (req, res) => {
   try {
     const removedVoiture = await Voiture.deleteOne({
       _id: req.params.voitureId
     });
     res.json(removedVoiture);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+router.put("/:voitureId", async (req, res) => {
+  try {
+    const updatedCar = await Voiture.updateOne(
+      { _id: req.params.voitureId },
+      {
+        $set: {
+          marque: req.body.marque,
+          modele: req.body.modele
+        }
+      }
+    );
+    res.json(updatedCar);
   } catch (err) {
     res.json({ message: err });
   }

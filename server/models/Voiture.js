@@ -46,6 +46,10 @@ const VoitureSchema = mongoose.Schema({
       type: Number,
       required: false
     }
+  },
+  imgURL: {
+    type: String,
+    require: false
   }
 });
 
