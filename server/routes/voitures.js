@@ -20,6 +20,18 @@ router.get("/:voitureId", async (req, res) => {
     res.json({ message: err });
   }
 });
+router.get("/disponible", async (req, res) => {
+  try {
+    const voituesLocation = await Location.find();
+    voituesLocation.aggregate([
+      { $match: {} },
+      { $group: { _id: "$numChasis", total: { $sum: "$numeroCIN" } } }
+    ]);
+    res.json(voitures);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
 
 router.get("/marque/:marque", async (req, res) => {
   try {

@@ -29,8 +29,13 @@ router.post("/", async (req, res) => {
     // "5e0a6ea830f7510fc9a1e6db"
     const location = new Location({
       identifiant: req.body.identifiant,
-      voiture: voiture,
-      client: client
+      voiture: req.body.voiture,
+      client: req.body.client,
+      dateDebut: req.body.dateDebut,
+      dateFin: req.body.dateFin,
+      promotion: req.body.promotion,
+      montant: req.body.montant,
+      accident: req.body.accident
     });
     console.log(req.body.client);
     const savedLocation = await location.save();
